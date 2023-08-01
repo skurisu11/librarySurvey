@@ -1,7 +1,7 @@
 <template>
   <v-ons-page>
     <v-ons-toolbar>
-      <div class="center">{{ title }}</div>
+      <div class="center">{{ store.count }}</div>
       <div class="right">
         <v-ons-toolbar-button>
           <v-ons-icon icon="ion-navicon, material: md-menu"></v-ons-icon>
@@ -15,10 +15,14 @@
   </v-ons-page>
 </template>
 <script>
+import { useMyStore } from '../www/js/store/store.js';
+
 export default{
-  data() {
+  setup() {
+    const store = useMyStore();
+
     return {
-      title: 'My app'
+      store,
     };
   },
   methods: {
