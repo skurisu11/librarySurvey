@@ -1,0 +1,35 @@
+{
+  "name": "onsenui-v2-vue3-minimum",
+  "version": "1.0.1",
+  "description": "",
+  "dependencies": {
+    "cordova-plugin-splashscreen": "6.0.0",
+    "monaca-plugin-monaca-core": "3.3.1",
+    "onsenui": "2.12.6",
+    "vue": "3.2.40",
+    "vue-onsenui": "3.0.0"
+  },
+  "scripts": {
+    "monaca:preview": "npm run dev & npm run watch",
+    "monaca:transpile": "npm run build",
+    "monaca:debug": "npm run watch",
+    "dev": "cross-env NODE_ENV=development vite",
+    "watch": "cross-env NODE_ENV=development vite build --watch",
+    "build": "cross-env NODE_ENV=production vite build"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-splashscreen": {},
+      "monaca-plugin-monaca-core": {}
+    }
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.0",
+    "cordova": "^11.0.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "vite": "^3.0.7",
+    "yargs": "^17.3.1"
+  }
+}
