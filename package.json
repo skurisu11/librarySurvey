@@ -7,7 +7,7 @@
     "monaca-plugin-monaca-core": "3.3.1",
     "onsenui": "2.12.6",
     "vue": "3.2.40",
-    "vue-onsenui": "3.0.0"
+    "vue-onsenui": "3.0.0",
   },
   "scripts": {
     "monaca:preview": "npm run dev & npm run watch",
@@ -15,7 +15,8 @@
     "monaca:debug": "npm run watch",
     "dev": "cross-env NODE_ENV=development vite",
     "watch": "cross-env NODE_ENV=development vite build --watch",
-    "build": "cross-env NODE_ENV=production vite build"
+    "build": "cross-env NODE_ENV=production vite build",
+    "format": "prettier --write \"**/*.js\""
   },
   "cordova": {
     "plugins": {
@@ -27,8 +28,9 @@
     "@vitejs/plugin-vue": "^3.1.0",
     "cordova": "^11.0.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.5.0",
-    "eslint-plugin-vue": "^8.2.0",
+    "eslint": "^8.46.0",
+    "eslint-plugin-vue": "^8.7.1",
+    "prettier": "^3.0.1",
     "vite": "^3.0.7",
     "yargs": "^17.3.1"
   }
