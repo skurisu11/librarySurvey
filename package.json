@@ -7,7 +7,8 @@
     "monaca-plugin-monaca-core": "3.3.1",
     "onsenui": "2.12.6",
     "vue": "3.2.40",
-    "vue-onsenui": "3.0.0"
+    "vue-onsenui": "3.0.0",
+    "vue-router": "^4.2.4"
   },
   "scripts": {
     "monaca:preview": "npm run dev & npm run watch",
