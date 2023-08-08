@@ -1,30 +1,29 @@
 <template>
-  <v-ons-page>
-    <v-ons-toolbar>
-      <div class="center">{{ title }}</div>
-      <div class="right">
-        <v-ons-toolbar-button>
-          <v-ons-icon icon="ion-navicon, material: md-menu"></v-ons-icon>
-        </v-ons-toolbar-button>
-      </div>
-    </v-ons-toolbar>
-    <div style="text-align: center; padding-top:10px">Hello World!</div>
-    <p style="text-align: center">
-      <v-ons-button @click="alert">Click Me!</v-ons-button>
-    </p>
-  </v-ons-page>
+  <div>
+    <button @click="incrementCount">{{ count }}</button>
+  </div>
 </template>
-<script>
-export default{
-  data() {
+
+<script lang="ts">
+import { ref, defineComponent } from "vue";
+
+export default defineComponent({
+  name: "App",
+  setup() {
+    const count = ref<number>("0"); // <--- 型エラー: string 値を number 型のrefに代入している。
+
+    function incrementCount() {
+      count.value += 1;
+      console.log(count.valu); // <--- 構文エラー: "valu" はtypoであり、正しくは "value" であるべき。
+    }
+
     return {
-      title: 'My app'
+      count,
+      incrementCount,
     };
   },
-  methods: {
-    alert() {
-      this.$ons.notification.alert('This is an Onsen UI alert notification test.');
-    }
-  }
-};
+});
 </script>
+
+<style scoped>
+</style>
