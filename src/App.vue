@@ -1,30 +1,42 @@
 <template>
-  <v-ons-page>
-    <v-ons-toolbar>
-      <div class="center">{{ title }}</div>
-      <div class="right">
-        <v-ons-toolbar-button>
-          <v-ons-icon icon="ion-navicon, material: md-menu"></v-ons-icon>
-        </v-ons-toolbar-button>
-      </div>
-    </v-ons-toolbar>
-    <div style="text-align: center; padding-top:10px">Hello World!</div>
-    <p style="text-align: center">
-      <v-ons-button @click="alert">Click Me!</v-ons-button>
-    </p>
-  </v-ons-page>
+  <div id="app">
+    <button @click="getAccount">Get Account</button>
+    <div>Account: {{ account }}</div>
+    <div>Balance: {{ balance }}</div>
+  </div>
 </template>
-<script>
-export default{
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import Web3 from "web3";
+
+export default defineComponent({
   data() {
     return {
-      title: 'My app'
+      account: "",
+      balance: "0 MATIC",
     };
   },
   methods: {
-    alert() {
-      this.$ons.notification.alert('This is an Onsen UI alert notification test.');
-    }
-  }
-};
+    async getAccount() {
+      if (this.$web3) {
+        const accounts: string[] = await this.$web3.eth.getAccounts();
+        this.account = accounts[0];
+        const weiBalance: string = await this.$web3.eth.getBalance(this.account);
+        this.balance = this.$web3.utils.fromWei(weiBalance, "ether") + " MATIC";
+      }
+    },
+  },
+});
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

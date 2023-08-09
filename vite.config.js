@@ -1,37 +1,22 @@
-import path from 'path';
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import envCompatible from 'vite-plugin-env-compatible';
 
-const SRC_DIR = path.resolve(__dirname, './src');
-const BUILD_DIR = path.resolve(__dirname, './www');
-const argvs = require('yargs').argv;
-const HOST = process.env.MONACA_SERVER_HOST || argvs.host || '0.0.0.0';
-
-export default {
+export default defineConfig({
+  root: './src',
   plugins: [
-    vue(),
+    envCompatible(),
+    vue({
+      template: {
+        compilerOptions: {},
+      },
+    }),
   ],
-  root: SRC_DIR,
-  base: '',
-  publicDir: BUILD_DIR,
-  build: {
-    outDir: BUILD_DIR,
-    assetsInlineLimit: 0,
-    emptyOutDir: false,
-    rollupOptions: {
-      output: {
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`
-      }
-    }
-  },
   resolve: {
     alias: {
-      '@': SRC_DIR,
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'events': 'events'
     },
   },
-  server: {
-    host: HOST,
-    port: 8080,
-  }
-};
+});
