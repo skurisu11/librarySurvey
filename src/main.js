@@ -1,29 +1,34 @@
-import { createApp } from 'vue';
+import { createApp } from "vue";
+import App from "./App.vue";
+import Web3 from "web3";
 
-import VueOnsen from 'vue-onsenui';
-import * as components from 'vue-onsenui/esm/components';
+let web3;
 
-import App from './App.vue';
-
-import 'onsenui/css/onsenui.css';
-import 'onsenui/css/onsen-css-components.css';
-
-if (VueOnsen.platform.isIPhoneX()) {
-  document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
-  document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+async function initWeb3() {
+  if (window.ethereum) {
+    web3 = new Web3(window.ethereum);
+    try {
+      // Request account access
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+    } catch (error) {
+      console.error("User denied account access:", error);
+      throw error;
+    }
+  } else {
+    console.warn("Non-Ethereum browser detected. Consider installing MetaMask!");
+    throw new Error("No Ethereum provider detected");
+  }
+  return web3;
 }
 
-const app = createApp(App);
-
-// Register all vue-onsenui components
-Object.values(components).forEach(component =>
-    app.component(component.name, component));
-
-app.use(VueOnsen);
-
-app.mount('#app');
-
-app.config.errorHandler = (err, vm, info) => {
-  console.error(e.toString());
-  return false;
-}
+initWeb3()
+    .then((web3Instance) => {
+      const app = createApp(App);
+      // Add the web3 instance to our app
+      app.config.globalProperties.$web3 = web3Instance;
+      app.mount("#app");
+    })
+    .catch((error) => {
+      console.error("Initialization error:", error);
+      // Additional error handling can be done here if needed.
+    });
