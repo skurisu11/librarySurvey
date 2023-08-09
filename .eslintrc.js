@@ -1,11 +1,10 @@
 require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
-    env: {
-        es6: true,
-        node: true,
+    parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
     },
-    extends: ['eslint:recommended'],
     plugins: ['import'],
     rules: {
         'import/no-unresolved': 'error'
