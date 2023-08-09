@@ -1,30 +1,38 @@
 <template>
-  <v-ons-page>
-    <v-ons-toolbar>
-      <div class="center">{{ title }}</div>
-      <div class="right">
-        <v-ons-toolbar-button>
-          <v-ons-icon icon="ion-navicon, material: md-menu"></v-ons-icon>
-        </v-ons-toolbar-button>
-      </div>
-    </v-ons-toolbar>
-    <div style="text-align: center; padding-top:10px">Hello World!</div>
-    <p style="text-align: center">
-      <v-ons-button @click="alert">Click Me!</v-ons-button>
-    </p>
-  </v-ons-page>
+  <div>
+    <button @click="getWeb3Info">Get Account Info</button>
+    <div v-if="accountInfo">
+      Address: {{ accountInfo.address }}<br>
+      Balance: {{ accountInfo.balance }}
+    </div>
+  </div>
 </template>
-<script>
-export default{
-  data() {
-    return {
-      title: 'My app'
-    };
-  },
-  methods: {
-    alert() {
-      this.$ons.notification.alert('This is an Onsen UI alert notification test.');
+
+<script lang="ts">
+import { ref, Ref } from 'vue';
+
+interface AccountInfo {
+  address: string;
+  balance: string;
+}
+
+// ここでimportする際、型を持つとより安全です。
+import getAccountInfo from './web3Sample';
+
+export default {
+  name: 'App',
+  setup() {
+    // accountInfo の型を Ref<AccountInfo | null> として指定します。
+    const accountInfo: Ref<AccountInfo | null> = ref(null);
+
+    async function getWeb3Info() {
+      accountInfo.value = await getAccountInfo();
     }
+
+    return {
+      accountInfo,
+      getWeb3Info
+    };
   }
-};
+}
 </script>

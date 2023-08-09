@@ -12,7 +12,7 @@ export default {
   ],
   root: SRC_DIR,
   base: '',
-  publicDir: BUILD_DIR,
+  publicDir: 'www',
   build: {
     outDir: BUILD_DIR,
     assetsInlineLimit: 0,
@@ -22,7 +22,8 @@ export default {
         entryFileNames: `assets/[name].js`,
         chunkFileNames: `assets/[name].js`,
         assetFileNames: `assets/[name].[ext]`
-      }
+      },
+      // external: ['www/components/loader.js', 'www/components/loader.css'] // これを追加
     }
   },
   resolve: {
